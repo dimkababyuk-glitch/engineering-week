@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Інженерний тиждень у ліцеї</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050a0f;
+    --bg2: #080f18;
+    --surface: #0d1a26;
+    --border: #1a2e42;
+    --cyan: #00e5ff;
+    --lime: #aaff00;
+    --orange: #ff6b2b;
+    --text: #e8f4ff;
+    --muted: #5a7a99;
+    --card: rgba(13,26,38,0.85);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Exo 2', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ── GRID BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  section, header, footer { position: relative; z-index: 1; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(20px);
+    background: rgba(5,10,15,0.8);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--cyan);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .nav-logo span { color: var(--lime); }
+
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    padding: 8px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .nav-cta:hover { background: var(--cyan); color: var(--bg); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 40px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--cyan);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-badge::before {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 1px;
+    background: var(--cyan);
+  }
+
+  .badge-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--lime);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  h1 {
+    font-size: clamp(48px, 8vw, 120px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -3px;
+    margin-bottom: 12px;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  h1 .line1 { color: var(--text); display: block; }
+  h1 .line2 {
+    display: block;
+    background: linear-gradient(90deg, var(--cyan), var(--lime));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  h1 .line3 { color: var(--text); display: block; }
+
+  .hero-dates {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--orange);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-tagline {
+    font-size: clamp(18px, 2.5vw, 26px);
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 640px;
+    margin-bottom: 48px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-tagline strong { color: var(--text); font-weight: 600; }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .btn-primary {
+    background: var(--cyan);
+    color: var(--bg);
+    border: none;
+    padding: 16px 36px;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    background: var(--lime);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(170,255,0,0.3);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 16px 36px;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .btn-secondary:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  .hero-stats {
+    display: flex;
+    gap: 48px;
+    margin-top: 72px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    animation: fadeUp 0.8s 0.5s ease both;
+    flex-wrap: wrap;
+  }
+
+  .stat-item { display: flex; flex-direction: column; gap: 4px; }
+
+  .stat-num {
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--cyan);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ── HERO GLOWS ── */
+  .hero-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .glow-1 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,229,255,0.08), transparent 70%);
+    top: 10%; right: -200px;
+    animation: floatGlow 8s ease-in-out infinite;
+  }
+
+  .glow-2 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(170,255,0,0.06), transparent 70%);
+    bottom: 20%; left: -100px;
+    animation: floatGlow 10s ease-in-out infinite reverse;
+  }
+
+  @keyframes floatGlow {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -30px); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 100px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--cyan);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 60px;
+    background: var(--cyan);
+    opacity: 0.5;
+  }
+
+  h2 {
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    color: var(--muted);
+    font-size: 18px;
+    max-width: 560px;
+    margin-bottom: 64px;
+    font-weight: 300;
+  }
+
+  /* ── TRACKS ── */
+  .tracks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2px;
+  }
+
+  .track-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+  }
+
+  .track-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--track-color, var(--cyan));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .track-card:hover { border-color: var(--track-color, var(--cyan)); }
+  .track-card:hover::before { transform: scaleX(1); }
+
+  .track-card:hover .track-icon { transform: scale(1.1) rotate(-5deg); }
+
+  .track-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    display: block;
+    transition: transform 0.3s;
+  }
+
+  .track-grade {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--track-color, var(--cyan));
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .track-name {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .track-desc {
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 24px;
+    line-height: 1.7;
+  }
+
+  .track-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    border: 1px solid;
+    letter-spacing: 1px;
+  }
+
+  .track-bg-num {
+    position: absolute;
+    bottom: -20px;
+    right: -10px;
+    font-size: 140px;
+    font-weight: 900;
+    opacity: 0.03;
+    line-height: 1;
+    pointer-events: none;
+    color: var(--track-color, var(--cyan));
+  }
+
+  /* ── TECH ── */
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+  }
+
+  .tech-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 32px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tech-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,229,255,0.05), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .tech-item:hover { border-color: var(--cyan); transform: translateY(-4px); }
+  .tech-item:hover::after { opacity: 1; }
+
+  .tech-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .tech-name {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .tech-desc {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── WHY ── */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+  }
+
+  .why-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .why-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--border);
+    line-height: 1;
+    flex-shrink: 0;
+    transition: color 0.3s;
+  }
+
+  .why-item:hover .why-num { color: var(--cyan); }
+
+  .why-text h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .why-text p { color: var(--muted); font-size: 15px; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  /* ── FORM ── */
+  .form-section {
+    background: linear-gradient(180deg, transparent, rgba(0,229,255,0.03));
+    border-top: 1px solid var(--border);
+  }
+
+  .form-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .form-left h2 { margin-bottom: 20px; }
+
+  .form-left .section-sub { margin-bottom: 40px; }
+
+  .form-perks {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .perk {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--muted);
+  }
+
+  .perk-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--lime);
+    flex-shrink: 0;
+  }
+
+  .reg-form {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 48px;
+    position: relative;
+  }
+
+  .reg-form::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--cyan), var(--lime));
+  }
+
+  .form-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    line-height: 1.3;
+  }
+
+  .form-group {
+    margin-bottom: 24px;
+  }
+
+  label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  input[type="text"],
+  select,
+  textarea {
+    width: 100%;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 14px 16px;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+  }
+
+  input[type="text"]:focus,
+  select:focus,
+  textarea:focus {
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 3px rgba(0,229,255,0.08);
+  }
+
+  input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.6; }
+
+  select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a7a99' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+  }
+
+  select option { background: var(--bg); }
+
+  textarea { resize: vertical; min-height: 90px; }
+
+  /* ── CHECKBOXES ── */
+  .tracks-check {
+    display: flex;
+    flex-direction: column;
+    gap: step(10px);
+  }
+
+  .track-opt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+
+  .track-opt:hover { border-color: var(--muted); }
+  .track-opt.active { border-color: var(--cyan); background: rgba(0,229,255,0.05); }
+  .track-opt.hidden { display: none; }
+
+  .track-opt input[type="checkbox"] { display: none; }
+
+  .check-box {
+    width: 18px; height: 18px;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .track-opt.active .check-box {
+    background: var(--cyan);
+    border-color: var(--cyan);
+  }
+
+  .check-box::after {
+    content: '✓';
+    font-size: 11px;
+    color: var(--bg);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .track-opt.active .check-box::after { opacity: 1; }
+
+  .track-opt-text { font-size: 14px; }
+
+  .track-opt-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 2px;
+    letter-spacing: 1px;
+  }
+
+  .track-hint {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+  }
+
+  /* ── SUBMIT ── */
+  .btn-submit {
+    width: 100%;
+    background: linear-gradient(90deg, var(--cyan), var(--lime));
+    border: none;
+    color: var(--bg);
+    padding: 18px;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-submit::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.15);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .btn-submit:hover::after { opacity: 1; }
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,229,255,0.25); }
+  .btn-submit:active { transform: translateY(0); }
+
+  /* ── SUCCESS ── */
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 48px 32px;
+  }
+
+  .success-msg.show { display: block; }
+
+  .success-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    display: block;
+    animation: bounceIn 0.6s ease both;
+  }
+
+  @keyframes bounceIn {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .success-title {
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 12px;
+    background: linear-gradient(90deg, var(--cyan), var(--lime));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .success-text { color: var(--muted); font-size: 16px; line-height: 1.7; }
+
+  .success-tg {
+    margin-top: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0,229,255,0.1);
+    border: 1px solid var(--cyan);
+    padding: 14px 24px;
+    color: var(--cyan);
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .success-tg:hover { background: rgba(0,229,255,0.2); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 2px;
+  }
+
+  .footer-logo span { color: var(--cyan); }
+
+  .footer-right {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  /* ── COUNTER ANIMATION ── */
+  .counter { font-variant-numeric: tabular-nums; }
+
+  /* ── TASKS ── */
+  .tasks-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  .tasks-tab {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 12px 28px;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+
+  .tasks-tab:hover { border-color: var(--muted); color: var(--text); }
+
+  .tasks-tab.active {
+    background: var(--surface);
+    border-color: var(--cyan);
+    color: var(--cyan);
+  }
+
+  .tasks-panel { display: none; }
+  .tasks-panel.active { display: block; }
+
+  .tasks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .task-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--tc, var(--cyan));
+    padding: 24px;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .task-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    border-color: var(--tc, var(--cyan));
+  }
+
+  .task-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.02), transparent);
+    pointer-events: none;
+  }
+
+  .task-emoji {
+    font-size: 28px;
+    display: block;
+    margin-bottom: 10px;
+    line-height: 1;
+  }
+
+  .task-name {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .task-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 20px; }
+    section { padding: 60px 20px; }
+    .hero { padding: 100px 20px 60px; }
+    .hero-stats { gap: 32px; }
+    .form-wrap { grid-template-columns: 1fr; gap: 40px; }
+    .reg-form { padding: 32px 24px; }
+    footer { padding: 30px 20px; flex-direction: column; align-items: flex-start; }
+    .footer-right { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">⚡ ЛІЦЕЙ <span>// STEM</span></div>
+  <a href="#form" class="nav-cta">РЕЄСТРАЦІЯ →</a>
+</nav>
+
+<section class="hero" style="position:relative; max-width:100%; padding-top:120px;">
+  <div class="glow-1 hero-glow"></div>
+  <div class="glow-2 hero-glow"></div>
+  <div style="max-width:1200px; margin:0 auto; width:100%;">
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      ЛІЦЕЙ № 4 × STEM × 2026
+    </div>
+
+    <h1>
+      <span class="line1">ІНЖЕНЕРНИЙ</span>
+      <span class="line2">ТИЖДЕНЬ</span>
+      <span class="line3">У ЛІЦЕЇ</span>
+    </h1>
+
+    <div class="hero-dates">📅 6–10 КВІТНЯ 2026 · ВСТУПНИЙ ТИЖДЕНЬ РОКУ</div>
+
+    <p class="hero-tagline">
+      <strong>Інженерія — це твоя суперсила змінювати світ.</strong><br>
+      П'ять днів, де ідеї перетворюються на реальні проекти. Для учнів 1–11 класів.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#form" class="btn-primary">🚀 Хочу брати участь!</a>
+      <a href="#tracks" class="btn-secondary">Переглянути треки ↓</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num counter" data-target="5">0</span>
+        <span class="stat-label">Днів активностей</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num counter" data-target="3">0</span>
+        <span class="stat-label">Вікові треки</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num counter" data-target="100">0</span>
+        <span class="stat-label">Місць</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" style="color:var(--lime)">∞</span>
+        <span class="stat-label">Ідей та винаходів</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tracks">
+  <div class="section-label">Активності</div>
+  <h2>Обери свій <span style="color:var(--cyan)">трек</span></h2>
+  <p class="section-sub">Кожен знайде своє місце — від першокласників до майбутніх інженерів.</p>
+
+  <div class="tracks-grid">
+    <div class="track-card" style="--track-color: #ff6b2b;">
+      <span class="track-icon">🧱</span>
+      <div class="track-grade">1 — 4 КЛАС</div>
+      <div class="track-name">Мейкер-початківець</div>
+      <p class="track-desc">Будуємо, досліджуємо, вигадуємо! Створюємо біонічних роботів-бджіл, павуків, що бігають від подиху, та проводимо хімічні досліди, що змушують кульки роздуватися, наче справжня риба-фугу. Тут помилка — це не поразка, а один із кроків інженерного пошуку.</p>
+      <div class="track-tags">
+        <span class="tag" style="color:var(--orange); border-color:rgba(255,107,43,0.3);">Біонічні моделі</span>
+        <span class="tag" style="color:var(--orange); border-color:rgba(255,107,43,0.3);">Мала авіація</span>
+        <span class="tag" style="color:var(--orange); border-color:rgba(255,107,43,0.3);">Хімічні реакції</span>
+        <span class="tag" style="color:var(--orange); border-color:rgba(255,107,43,0.3);">Інженерні виклики</span>
+      </div>
+      <div class="track-bg-num">1</div>
+    </div>
+
+    <div class="track-card" style="--track-color: #00e5ff;">
+      <span class="track-icon">🤖</span>
+      <div class="track-grade">5 — 9 КЛАС</div>
+      <div class="track-name">Інженер-дослідник</div>
+      <p class="track-desc">Дізнаємося, як природа надихає на створення технологій. Проєктуємо бумеранги за формою крил птахів, збираємо «маяки», де провідником струму стає солона вода, та створюємо складні паперові структури, які використовують у космосі. Ставимо складні запитання й шукаємо власні підходи — без готових інструкцій.</p>
+      <div class="track-tags">
+        <span class="tag" style="color:var(--cyan); border-color:rgba(0,229,255,0.3);">Біомімікрія</span>
+        <span class="tag" style="color:var(--cyan); border-color:rgba(0,229,255,0.3);">Аеродинаміка польоту</span>
+        <span class="tag" style="color:var(--cyan); border-color:rgba(0,229,255,0.3);">Рідка схемотехніка</span>
+        <span class="tag" style="color:var(--cyan); border-color:rgba(0,229,255,0.3);">Космічне кірігамі</span>
+      </div>
+      <div class="track-bg-num">5</div>
+    </div>
+
+    <div class="track-card" style="--track-color: #aaff00;">
+      <span class="track-icon">⚡</span>
+      <div class="track-grade">10 — 11 КЛАС</div>
+      <div class="track-name">Техно-дизайнер майбутнього</div>
+      <p class="track-desc">Розробляємо інженерні рішення для порятунку планети та освоєння нових просторів. Вивчаємо, як «ловити» енергію на великих висотах за допомогою спеціальних літунів, та створюємо системи, що захищають птахів від ліній електропередач. Ми не просто користуємося рішеннями — ми розширюємо межі можливого.</p>
+      <div class="track-tags">
+        <span class="tag" style="color:var(--lime); border-color:rgba(170,255,0,0.3);">Кайтові системи</span>
+        <span class="tag" style="color:var(--lime); border-color:rgba(170,255,0,0.3);">Відновлювана енергетика</span>
+        <span class="tag" style="color:var(--lime); border-color:rgba(170,255,0,0.3);">Еко-інженерія</span>
+        <span class="tag" style="color:var(--lime); border-color:rgba(170,255,0,0.3);">Вбудовані системи</span>
+      </div>
+      <div class="track-bg-num">10</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="tasks">
+  <div class="section-label">Інженерні завдання</div>
+  <h2>Що ми будемо <span style="color:var(--orange)">робити?</span></h2>
+  <p class="section-sub">Конкретні завдання для кожного треку — від мікро-літаків до вітроенергетики.</p>
+
+  <div class="tasks-tabs">
+    <button class="tasks-tab active" onclick="switchTab(this, 'tab-1-4')">🧱 1–4 клас</button>
+    <button class="tasks-tab" onclick="switchTab(this, 'tab-5-9')">🤖 5–9 клас</button>
+    <button class="tasks-tab" onclick="switchTab(this, 'tab-10-11')">⚡ 10–11 клас</button>
+  </div>
+
+  <div class="tasks-panel active" id="tab-1-4">
+    <div class="tasks-grid">
+      <div class="task-card" style="--tc:#ff6b2b">
+        <span class="task-emoji">🐝</span>
+        <div class="task-name">Мала авіація</div>
+        <p class="task-desc">Побудуй мікро-літак із ватної палички та паперу, натхненний найменшим у світі роботом-бджолою RoboBee.</p>
+      </div>
+      <div class="task-card" style="--tc:#ff6b2b">
+        <span class="task-emoji">🏃</span>
+        <div class="task-name">Роби-робоБіг</div>
+        <p class="task-desc">Створи картонного робота та дізнайся, як швидкість обертання деталей створює ілюзію бігу.</p>
+      </div>
+      <div class="task-card" style="--tc:#ff6b2b">
+        <span class="task-emoji">🕷️</span>
+        <div class="task-name">Павучі перегони</div>
+        <p class="task-desc">Сконструюй павука з кабельних стяжок, який рухається від сили твого подиху, та вивчи властивості надміцних волокон.</p>
+      </div>
+      <div class="task-card" style="--tc:#ff6b2b">
+        <span class="task-emoji">🛸</span>
+        <div class="task-name">Фрісбі</div>
+        <p class="task-desc">Виготов літальний диск із паперових тарілок і дізнайся, як інженери намагалися створити справжню літаючу автівку.</p>
+      </div>
+      <div class="task-card" style="--tc:#ff6b2b">
+        <span class="task-emoji">🤖</span>
+        <div class="task-name">Робот Бобот</div>
+        <p class="task-desc">Оживи механічну іграшку з паперового горнятка та соломинок, опановуючи основи передачі руху.</p>
+      </div>
+      <div class="task-card" style="--tc:#ff6b2b">
+        <span class="task-emoji">🐦</span>
+        <div class="task-name">Вверх-вниз</div>
+        <p class="task-desc">Змайструй створіння, що спритно підіймається по нитці, перетворюючи силу тяжіння на обертання крил.</p>
+      </div>
+      <div class="task-card" style="--tc:#ff6b2b">
+        <span class="task-emoji">🐡</span>
+        <div class="task-name">Риба-куля</div>
+        <p class="task-desc">Проведи хімічний дослід із содою та оцтом, щоб роздути «розумну пігулку», яка допомагає лікарям досліджувати організм.</p>
+      </div>
+      <div class="task-card" style="--tc:#ff6b2b">
+        <span class="task-emoji">🧩</span>
+        <div class="task-name">Головоломки</div>
+        <p class="task-desc">Розгадай логічні загадки «Бичачий ніс» та «Дві намистини» зі шнурами та кільцями, розвиваючи просторове мислення.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tasks-panel" id="tab-5-9">
+    <div class="tasks-grid">
+      <div class="task-card" style="--tc:#00e5ff">
+        <span class="task-emoji">🎨</span>
+        <div class="task-name">Шедевр маятника</div>
+        <p class="task-desc">Створи малюнок за допомогою маятника Фуко та на власні очі побач доказ обертання нашої планети.</p>
+      </div>
+      <div class="task-card" style="--tc:#00e5ff">
+        <span class="task-emoji">✨</span>
+        <div class="task-name">LED-браслет</div>
+        <p class="task-desc">Розроби власну носиму технологію: збери електричне коло з алюмінієвої фольги та світлодіода.</p>
+      </div>
+      <div class="task-card" style="--tc:#00e5ff">
+        <span class="task-emoji">🪃</span>
+        <div class="task-name">Чобіт-бумеранг</div>
+        <p class="task-desc">Вивчи аеродинаміку пташиного польоту, надаючи картонним лопатям правильних вигинів для повернення до рук.</p>
+      </div>
+      <div class="task-card" style="--tc:#00e5ff">
+        <span class="task-emoji">🌱</span>
+        <div class="task-name">Гелікоптер-насінинка</div>
+        <p class="task-desc">Запусти модель, що імітує політ насіння, та дізнайся, як дрони допомагають відновлювати ліси після пожеж.</p>
+      </div>
+      <div class="task-card" style="--tc:#00e5ff">
+        <span class="task-emoji">🚨</span>
+        <div class="task-name">Маяк</div>
+        <p class="task-desc">Збери схему, що реагує на солону воду, та дізнайся, як розумні буї «слухають» океан і допомагають дельфінам.</p>
+      </div>
+      <div class="task-card" style="--tc:#00e5ff">
+        <span class="task-emoji">📦</span>
+        <div class="task-name">Як воно обертається</div>
+        <p class="task-desc">Створи листівку-кірігамі, яка компактно складається, подібно до космічних житлових модулів для Місяця.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tasks-panel" id="tab-10-11">
+    <div class="tasks-grid">
+      <div class="task-card" style="--tc:#aaff00">
+        <span class="task-emoji">🪁</span>
+        <div class="task-name">Літун XL 2.0</div>
+        <p class="task-desc">Сконструюй великого коробчастого змія, використавши теорему Піфагора, та вивчи майбутнє висотної вітроенергетики.</p>
+      </div>
+      <div class="task-card" style="--tc:#aaff00">
+        <span class="task-emoji">🌬️</span>
+        <div class="task-name">Вітроверт</div>
+        <p class="task-desc">Створи складну динамічну структуру з металу, що захищає птахів від ударів струмом на лініях електропередач.</p>
+      </div>
+      <div class="task-card" style="--tc:#aaff00">
+        <span class="task-emoji">🪐</span>
+        <div class="task-name">Якби планети світилися</div>
+        <p class="task-desc">Спроєктуй дизайнерський світильник, використовуючи дриль для підготовки корпусу та мідну фольгу для живлення.</p>
+      </div>
+      <div class="task-card" style="--tc:#aaff00">
+        <span class="task-emoji">🪚</span>
+        <div class="task-name">Складні головоломки</div>
+        <p class="task-desc">Опануй роботу з фанерою та лобзиком, створюючи тривимірні механічні загадки «Індійський трюк» та «Веселий Роджер».</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="tech">
+  <div class="section-label">Технології 2026</div>
+  <h2>Наші <span style="color:var(--lime)">інструменти</span> — <span style="color:var(--cyan)">природа і мейкерство</span></h2>
+  <p class="section-sub">Ми розширюємо межі можливого, створюючи складні технології з простих речей.</p>
+
+  <div class="tech-grid">
+    <div class="tech-item">
+      <span class="tech-icon">🤖</span>
+      <div class="tech-name">Біонічна робототехніка</div>
+      <p class="tech-desc">Від простих рухомих моделей до біоінспірованих рішень. Досліджуємо механіку руху комах, як-от RoboBee, та створюємо власних роботів із підручних матеріалів, вивчаючи основи вбудованих систем.</p>
+    </div>
+    <div class="tech-item">
+      <span class="tech-icon">📐</span>
+      <div class="tech-name">Інженерне моделювання та кірігамі</div>
+      <p class="tech-desc">Від паперового ескізу до складних космічних модулів. Використовуємо принципи орігамі та кірігамі для проектування компактних структур, що розгортаються в космосі, та будуємо призматичні літальні апарати на основе математичних розрахунків.</p>
+    </div>
+    <div class="tech-item">
+      <span class="tech-icon">🌬️</span>
+      <div class="tech-name">Енергія та еко-моніторинг</div>
+      <p class="tech-desc">Ловимо вітер кайтами та слухаємо океан «розумними» буями. Вивчаємо альтернативну енергетику через запуск висотних літунів та проектуємо системи захисту птахів і моніторингу довкілля за допомогою сенсорів.</p>
+    </div>
+    <div class="tech-item">
+      <span class="tech-icon">💡</span>
+      <div class="tech-name">Носимі технології та рідка схемотехніка</div>
+      <p class="tech-desc">Створюємо електричні кола, де провідником може бути навіть солона вода. Проектуємо LED-браслети, розумні світильники та вивчаємо провідність матеріалів, перетворюючи звичайну фізику на справжню інженерну магію.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="why">
+  <div class="section-label">Переваги</div>
+  <h2>Чому <span style="color:var(--orange)">варто</span> взяти участь?</h2>
+  <p class="section-sub">Тут не буде нудних лекцій. Тільки практика, команда і результат.</p>
+
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-num">01</div>
+      <div class="why-text">
+        <h3>🧠 Реальні навички</h3>
+        <p>Програмування, конструювання, проектування — ті скіли, за які компанії платять великі гроші. І ти можеш почати прямо зараз.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">02</div>
+      <div class="why-text">
+        <h3>🤝 Командна робота</h3>
+        <p>Жоден великий проект не створюється наодинці. Навчишся слухати, пояснювати і робити разом — як у справжніх стартапах.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">03</div>
+      <div class="why-text">
+        <h3>🏆 Круті призи</h3>
+        <p>Фінальний день — це захист проектів і нагородження. Сертифікати, призи та море фоток для галереї переможців.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">04</div>
+      <div class="why-text">
+        <h3>🚀 Натхнення на рік вперед</h3>
+        <p>Побачиш, що ти здатний на набагато більше, ніж думаєш. Ці п'ять днів можуть змінити твій погляд на майбутню професію.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">05</div>
+      <div class="why-text">
+        <h3>👾 Нові друзі-однодумці</h3>
+        <p>Познайомишся з хлопцями і дівчатами, яким теж цікава технологія. Разом будувати значно веселіше!</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">06</div>
+      <div class="why-text">
+        <h3>💡 Твій проект — твоя ідея</h3>
+        <p>Ніяких шаблонів. Ти сам обираєш, що будувати. Менторів — максимум підтримки, контролю — мінімум.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="form" class="form-section" style="max-width:100%; padding:100px 40px;">
+  <div style="max-width:1200px; margin:0 auto;">
+    <div class="form-wrap">
+      <div class="form-left">
+        <div class="section-label">Реєстрація</div>
+        <h2>Займи місце в команді <span style="color:var(--cyan)">майбутнього</span></h2>
+        <p class="section-sub">Місця обмежені. Не зволікай — твій проект вже чекає на тебе.</p>
+
+        <div class="form-perks">
+          <div class="perk"><div class="perk-dot"></div>Реєстрація безкоштовна</div>
+          <div class="perk"><div class="perk-dot"></div>Всі матеріали надаємо ми</div>
+          <div class="perk"><div class="perk-dot"></div>Для 1–11 класів</div>
+          <div class="perk"><div class="perk-dot"></div>Сертифікат учасника</div>
+        </div>
+      </div>
+
+      <div class="reg-form">
+        <div id="form-content">
+          <div class="form-title">🔐 Забронюй своє місце в команді майбутнього</div>
+
+          <form id="regForm" novalidate>
+            <div class="form-group">
+              <label for="name">ПІБ учня *</label>
+              <input type="text" id="name" placeholder="Наприклад: Марченко Олексій" required>
+            </div>
+
+            <div class="form-group">
+              <label for="grade">Клас *</label>
+              <select id="grade" required onchange="updateTracks(this.value)">
+                <option value="">— Оберіть клас —</option>
+                <option value="1">1 клас</option>
+                <option value="2">2 клас</option>
+                <option value="3">3 клас</option>
+                <option value="4">4 клас</option>
+                <option value="5">5 клас</option>
+                <option value="6">6 клас</option>
+                <option value="7">7 клас</option>
+                <option value="8">8 клас</option>
+                <option value="9">9 клас</option>
+                <option value="10">10 клас</option>
+                <option value="11">11 клас</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Напрямок участі *</label>
+              <div class="track-hint" id="trackHint">↑ Спочатку оберіть клас</div>
+              <div class="tracks-check" id="tracksContainer">
+                <div class="track-opt hidden grades-1-4" onclick="toggleTrack(this)">
+                  <input type="checkbox" name="track" value="maker">
+                  <div class="check-box"></div>
+                  <div>
+                    <div class="track-opt-text">🧱 Мейкер-початківець</div>
+                    <div class="track-opt-sub">Біонічні моделі · Хімічні реакції · Мала авіація</div>
+                  </div>
+                </div>
+
+                <div class="track-opt hidden grades-5-9" onclick="toggleTrack(this)">
+                  <input type="checkbox" name="track" value="researcher">
+                  <div class="check-box"></div>
+                  <div>
+                    <div class="track-opt-text">🤖 Інженер-дослідник</div>
+                    <div class="track-opt-sub">Біомімікрія · Аеродинаміка · Рідка схемотехніка</div>
+                  </div>
+                </div>
+                <div class="track-opt hidden grades-5-9" onclick="toggleTrack(this)">
+                  <input type="checkbox" name="track" value="kirigami">
+                  <div class="check-box"></div>
+                  <div>
+                    <div class="track-opt-text">📐 Космічне моделювання та кірігамі</div>
+                    <div class="track-opt-sub">Орігамі-структури · Паперові модулі · Математика форм</div>
+                  </div>
+                </div>
+
+                <div class="track-opt hidden grades-10-11" onclick="toggleTrack(this)">
+                  <input type="checkbox" name="track" value="techdesign">
+                  <div class="check-box"></div>
+                  <div>
+                    <div class="track-opt-text">⚡ Техно-дизайнер майбутнього</div>
+                    <div class="track-opt-sub">Кайтові системи · Відновлювана енергетика</div>
+                  </div>
+                </div>
+                <div class="track-opt hidden grades-10-11" onclick="toggleTrack(this)">
+                  <input type="checkbox" name="track" value="eco">
+                  <div class="check-box"></div>
+                  <div>
+                    <div class="track-opt-text">🌿 Еко-інженерія та безпека тваринного світу</div>
+                    <div class="track-opt-sub">Захист птахів · Моніторинг довкілля · Сенсори</div>
+                  </div>
+                </div>
+                <div class="track-opt hidden grades-10-11" onclick="toggleTrack(this)">
+                  <input type="checkbox" name="track" value="embedded">
+                  <div class="check-box"></div>
+                  <div>
+                    <div class="track-opt-text">🔧 Прототипування вбудованих систем</div>
+                    <div class="track-opt-sub">Мікроконтролери · IoT · Захист проекту</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="dream">Твій найсміливіший винахід</label>
+              <textarea id="dream" placeholder="Який винахід ти хотів би втілити в життя? Не бійся мріяти масштабно! 🚀"></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">⚡ Я В СПРАВІ!</button>
+          </form>
+        </div>
+
+        <div class="success-msg" id="successMsg">
+          <span class="success-icon">🎉</span>
+          <div class="success-title">Вітаємо, інженере!</div>
+          <p class="success-text">
+            Твоя заявка прийнята 🚀<br>
+            Ти тепер офіційно частина команди.<br>
+            <strong>Наступний крок</strong> — приєднайся до нашого Telegram-чату, щоб отримати деталі, розклад і найважливіше: не проґавити жодної активності!
+          </p>
+          <br>
+          <a href="https://t.me/+yourlink" class="success-tg" target="_blank">
+            📲 Приєднатися до Telegram-чату
+          </a>
+          <p style="margin-top:16px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); letter-spacing:1px;">
+            ДО ЗУСТРІЧІ 6 КВІТНЯ · ЛІЦЕЙ № 4 · STEM-ЗАЛ
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">⚡ ЛІЦЕЙ <span>// ІНЖЕНЕРНИЙ ТИЖДЕНЬ</span></div>
+  <div class="footer-right">
+    6 — 10 КВІТНЯ 2026<br>
+    <span style="color:var(--border);">Питання? Пишіть у Telegram</span>
+  </div>
+</footer>
+
+<script>
+  // ── TASKS TABS ──
+  function switchTab(btn, panelId) {
+    document.querySelectorAll('.tasks-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tasks-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(panelId).classList.add('active');
+  }
+
+  // ── COUNTER ANIMATION ──
+  function animateCounter(el, target, duration = 1500) {
+    let start = null;
+    const step = ts => {
+      if (!start) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      const val = Math.floor(progress * target);
+      el.textContent = val + (target === 100 ? '+' : '');
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  const counters = document.querySelectorAll('.counter');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCounter(e.target, +e.target.dataset.target);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => observer.observe(c));
+
+  // ── SCROLL FADE ──
+  const fadeEls = document.querySelectorAll('.track-card, .tech-item, .why-item');
+  const fadeObs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }, 60 * (Array.from(fadeEls).indexOf(e.target) % 4));
+        fadeObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  fadeEls.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    fadeObs.observe(el);
+  });
+
+  // ── TRACK SELECTOR ──
+  function updateTracks(val) {
+    const grade = parseInt(val);
+    const hint = document.getElementById('trackHint');
+    const opts = document.querySelectorAll('.track-opt');
+
+    opts.forEach(o => {
+      o.classList.add('hidden');
+      o.classList.remove('active');
+      o.querySelector('input').checked = false;
+    });
+
+    if (!grade) {
+      hint.textContent = '↑ Спочатку оберіть клас';
+      return;
+    }
+
+    let group, label;
+    if (grade <= 4) {
+      group = '.grades-1-4';
+      label = '👇 Доступний напрямок для твого класу:';
+    } else if (grade <= 9) {
+      group = '.grades-5-9';
+      label = '👇 Обери свій напрямок:';
+    } else {
+      group = '.grades-10-11';
+      label = '👇 Обери до двох напрямків:';
+    }
+
+    hint.textContent = label;
+    document.querySelectorAll(group).forEach(o => o.classList.remove('hidden'));
+  }
+
+  function toggleTrack(el) {
+    const isActive = el.classList.contains('active');
+    const input = el.querySelector('input');
+
+    // Max 2 selections for 10-11
+    const grade = parseInt(document.getElementById('grade').value);
+    if (!isActive && grade >= 10) {
+      const activeCount = document.querySelectorAll('.track-opt.active').length;
+      if (activeCount >= 2) return;
+    }
+
+    el.classList.toggle('active');
+    input.checked = !isActive;
+  }
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // ── GOOGLE FORMS КОНФІГ ──
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  const GF_CONFIG = {
+    formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSfD_...ВАШ_ID.../formResponse',
+
+    fields: {
+      name:    'entry.00000000',   // ID поля ПІБ учня
+      grade:   'entry.00000000',   // ID поля Клас
+      track:   'entry.00000000',   // ID поля Напрямок
+      dream:   'entry.00000000',   // ID поля Винахід
+    }
+  };
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  // ── FORM SUBMIT ──
+  document.getElementById('regForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name    = document.getElementById('name').value.trim();
+    const grade   = document.getElementById('grade').value;
+    const dream   = document.getElementById('dream').value.trim();
+    const tracks  = [...document.querySelectorAll('input[name="track"]:checked')];
+
+    // ── ВАЛІДАЦІЯ ──
+    if (!name || !grade || tracks.length === 0) {
+      [!name && 'name', !grade && 'grade']
+        .filter(Boolean)
+        .forEach(id => {
+          const el = document.getElementById(id);
+          el.style.borderColor = 'var(--orange)';
+          el.style.boxShadow = '0 0 0 3px rgba(255,107,43,0.15)';
+          setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 2000);
+        });
+      if (tracks.length === 0) {
+        document.getElementById('trackHint').style.color = 'var(--orange)';
+        setTimeout(() => document.getElementById('trackHint').style.color = '', 2000);
+      }
+      return;
+    }
+
+    // ── ВІДПРАВКА В GOOGLE FORMS ──
+    const trackLabels = tracks.map(t => t.value).join(', ');
+
+    const params = new URLSearchParams();
+    params.append(GF_CONFIG.fields.name,    name);
+    params.append(GF_CONFIG.fields.grade,   grade + ' клас');
+    params.append(GF_CONFIG.fields.track,   trackLabels);
+    params.append(GF_CONFIG.fields.dream,   dream || '—');
+    params.append('submit',                 'Submit');
+
+    let iframe = document.getElementById('gf-iframe');
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.id = 'gf-iframe';
+      iframe.name = 'gf-iframe';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+    }
+
+    const tempForm = document.createElement('form');
+    tempForm.method = 'POST';
+    tempForm.action = GF_CONFIG.formUrl;
+    tempForm.target = 'gf-iframe';
+    tempForm.style.display = 'none';
+
+    params.forEach((val, key) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = val;
+      tempForm.appendChild(input);
+    });
+
+    document.body.appendChild(tempForm);
+    tempForm.submit();
+    document.body.removeChild(tempForm);
+
+    // ── ПОКАЗАТИ УСПІХ ──
+    document.getElementById('form-content').style.display = 'none';
+    document.getElementById('successMsg').classList.add('show');
+  });
+</script>
+</body>
+</html>
