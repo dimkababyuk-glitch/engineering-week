@@ -1343,28 +1343,43 @@ formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSc3r9bqqR-VCM2UbQRUGQrI5jq4d-
   }
 
   // ── FORM SUBMIT ──
-  document.getElementById('regForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+  // ── FORM SUBMIT ──
+document.getElementById('regForm').addEventListener('submit', function(e) {
+  e.preventDefault();
 
-    const name    = document.getElementById('name').value.trim();
-    const grade   = document.getElementById('grade').value;
-    const dream   = document.getElementById('dream').value.trim();
-    
-    // Зчитуємо треки на випадок майбутнього використання
-    const tracks  = [...document.querySelectorAll('input[name="track"]:checked')];
+  const name  = document.getElementById('name').value.trim();
+  const grade = document.getElementById('grade').value;
+  const dream = document.getElementById('dream').value.trim();
+  const tracks = [...document.querySelectorAll('input[name="track"]:checked')];
 
-    // ── ВАЛІДАЦІЯ ──
-    if (!name || !grade) {
-      [!name && 'name', !grade && 'grade']
-        .filter(Boolean)
-        .forEach(id => {
-          const el = document.getElementById(id);
-          el.style.borderColor = 'var(--orange)';
-          el.style.boxShadow = '0 0 0 3px rgba(255,107,43,0.15)';
-          setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 2000);
-        });
-      return;
-    }
+  if (!name || !grade) {
+    [!name && 'name', !grade && 'grade'].filter(Boolean).forEach(id => {
+      const el = document.getElementById(id);
+      el.style.borderColor = 'var(--orange)';
+      el.style.boxShadow = '0 0 0 3px rgba(255,107,43,0.15)';
+      setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 2000);
+    });
+    return;
+  }
+
+  const params = new URLSearchParams();
+  params.append(GF_CONFIG.fields.name,  name);
+  params.append(GF_CONFIG.fields.grade, grade + ' клас');
+  params.append(GF_CONFIG.fields.dream, dream || '—');
+  params.append(GF_CONFIG.fields.track, tracks.map(t => t.value).join(', ') || '—');
+
+  const submitUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSc3r9bqqR-VCM2UbQRUGQrI5jq4d-XJTNJ7347AeH6SPPvWEw/formResponse';
+
+  fetch(submitUrl, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: params.toString()
+  }).catch(() => {}); // no-cors завжди кидає помилку — це нормально
+
+  document.getElementById('form-content').style.display = 'none';
+  document.getElementById('successMsg').classList.add('show');
+});
 
     // ── ВІДПРАВКА В GOOGLE FORMS ──
     const params = new URLSearchParams();
