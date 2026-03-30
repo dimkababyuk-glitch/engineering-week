@@ -622,7 +622,7 @@
   .tracks-check {
     display: flex;
     flex-direction: column;
-    gap: step(10px);
+    gap: 10px;
   }
 
   .track-opt {
@@ -751,23 +751,6 @@
 
   .success-text { color: var(--muted); font-size: 16px; line-height: 1.7; }
 
-  .success-tg {
-    margin-top: 24px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(0,229,255,0.1);
-    border: 1px solid var(--cyan);
-    padding: 14px 24px;
-    color: var(--cyan);
-    font-weight: 600;
-    font-size: 16px;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .success-tg:hover { background: rgba(0,229,255,0.2); }
-
   /* ── FOOTER ── */
   footer {
     border-top: 1px solid var(--border);
@@ -796,9 +779,6 @@
     color: var(--muted);
     text-align: right;
   }
-
-  /* ── COUNTER ANIMATION ── */
-  .counter { font-variant-numeric: tabular-nums; }
 
   /* ── TASKS ── */
   .tasks-tabs {
@@ -966,12 +946,11 @@
       <span class="track-icon">🧱</span>
       <div class="track-grade">1 — 4 КЛАС</div>
       <div class="track-name">Мейкер-початківець</div>
-      <p class="track-desc">Будуємо, досліджуємо, вигадуємо! Створюємо біонічних роботів-бджіл, павуків, що бігають від подиху, та проводимо хімічні досліди, що змушують кульки роздуватися, наче справжня риба-фугу. Тут помилка — це не поразка, а один із кроків інженерного пошуку.</p>
+      <p class="track-desc">Будуємо, досліджуємо, вигадуємо! Створюємо біонічних роботів-бджіл, павуків, що бігають від подиху, та проводимо хімічні досліди, що змушують кульки роздуватися, наче справжня риба-фугу.</p>
       <div class="track-tags">
         <span class="tag" style="color:var(--orange); border-color:rgba(255,107,43,0.3);">Біонічні моделі</span>
         <span class="tag" style="color:var(--orange); border-color:rgba(255,107,43,0.3);">Мала авіація</span>
         <span class="tag" style="color:var(--orange); border-color:rgba(255,107,43,0.3);">Хімічні реакції</span>
-        <span class="tag" style="color:var(--orange); border-color:rgba(255,107,43,0.3);">Інженерні виклики</span>
       </div>
       <div class="track-bg-num">1</div>
     </div>
@@ -980,11 +959,10 @@
       <span class="track-icon">🤖</span>
       <div class="track-grade">5 — 9 КЛАС</div>
       <div class="track-name">Інженер-дослідник</div>
-      <p class="track-desc">Дізнаємося, як природа надихає на створення технологій. Проєктуємо бумеранги за формою крил птахів, збираємо «маяки», де провідником струму стає солона вода, та створюємо складні паперові структури, які використовують у космосі. Ставимо складні запитання й шукаємо власні підходи — без готових інструкцій.</p>
+      <p class="track-desc">Дізнаємося, як природа надихає на створення технологій. Проєктуємо бумеранги за формою крил птахів, збираємо «маяки», де провідником струму стає солона вода, та створюємо складні паперові структури.</p>
       <div class="track-tags">
         <span class="tag" style="color:var(--cyan); border-color:rgba(0,229,255,0.3);">Біомімікрія</span>
         <span class="tag" style="color:var(--cyan); border-color:rgba(0,229,255,0.3);">Аеродинаміка польоту</span>
-        <span class="tag" style="color:var(--cyan); border-color:rgba(0,229,255,0.3);">Рідка схемотехніка</span>
         <span class="tag" style="color:var(--cyan); border-color:rgba(0,229,255,0.3);">Космічне кірігамі</span>
       </div>
       <div class="track-bg-num">5</div>
@@ -994,12 +972,11 @@
       <span class="track-icon">⚡</span>
       <div class="track-grade">10 — 11 КЛАС</div>
       <div class="track-name">Техно-дизайнер майбутнього</div>
-      <p class="track-desc">Розробляємо інженерні рішення для порятунку планети та освоєння нових просторів. Вивчаємо, як «ловити» енергію на великих висотах за допомогою спеціальних літунів, та створюємо системи, що захищають птахів від ліній електропередач. Ми не просто користуємося рішеннями — ми розширюємо межі можливого.</p>
+      <p class="track-desc">Розробляємо інженерні рішення для порятунку планети. Вивчаємо, як «ловити» енергію на великих висотах за допомогою спеціальних літунів, та створюємо системи, що захищають птахів.</p>
       <div class="track-tags">
         <span class="tag" style="color:var(--lime); border-color:rgba(170,255,0,0.3);">Кайтові системи</span>
         <span class="tag" style="color:var(--lime); border-color:rgba(170,255,0,0.3);">Відновлювана енергетика</span>
         <span class="tag" style="color:var(--lime); border-color:rgba(170,255,0,0.3);">Еко-інженерія</span>
-        <span class="tag" style="color:var(--lime); border-color:rgba(170,255,0,0.3);">Вбудовані системи</span>
       </div>
       <div class="track-bg-num">10</div>
     </div>
@@ -1034,32 +1011,12 @@
       <div class="task-card" style="--tc:#ff6b2b">
         <span class="task-emoji">🕷️</span>
         <div class="task-name">Павучі перегони</div>
-        <p class="task-desc">Сконструюй павука з кабельних стяжок, який рухається від сили твого подиху, та вивчи властивості надміцних волокон.</p>
-      </div>
-      <div class="task-card" style="--tc:#ff6b2b">
-        <span class="task-emoji">🛸</span>
-        <div class="task-name">Фрісбі</div>
-        <p class="task-desc">Виготов літальний диск із паперових тарілок і дізнайся, як інженери намагалися створити справжню літаючу автівку.</p>
-      </div>
-      <div class="task-card" style="--tc:#ff6b2b">
-        <span class="task-emoji">🤖</span>
-        <div class="task-name">Робот Бобот</div>
-        <p class="task-desc">Оживи механічну іграшку з паперового горнятка та соломинок, опановуючи основи передачі руху.</p>
-      </div>
-      <div class="task-card" style="--tc:#ff6b2b">
-        <span class="task-emoji">🐦</span>
-        <div class="task-name">Вверх-вниз</div>
-        <p class="task-desc">Змайструй створіння, що спритно підіймається по нитці, перетворюючи силу тяжіння на обертання крил.</p>
+        <p class="task-desc">Сконструюй павука з кабельних стяжок, який рухається від сили твого подиху.</p>
       </div>
       <div class="task-card" style="--tc:#ff6b2b">
         <span class="task-emoji">🐡</span>
         <div class="task-name">Риба-куля</div>
-        <p class="task-desc">Проведи хімічний дослід із содою та оцтом, щоб роздути «розумну пігулку», яка допомагає лікарям досліджувати організм.</p>
-      </div>
-      <div class="task-card" style="--tc:#ff6b2b">
-        <span class="task-emoji">🧩</span>
-        <div class="task-name">Головоломки</div>
-        <p class="task-desc">Розгадай логічні загадки «Бичачий ніс» та «Дві намистини» зі шнурами та кільцями, розвиваючи просторове мислення.</p>
+        <p class="task-desc">Проведи хімічний дослід із содою та оцтом, щоб роздути «розумну пігулку».</p>
       </div>
     </div>
   </div>
@@ -1072,29 +1029,14 @@
         <p class="task-desc">Створи малюнок за допомогою маятника Фуко та на власні очі побач доказ обертання нашої планети.</p>
       </div>
       <div class="task-card" style="--tc:#00e5ff">
-        <span class="task-emoji">✨</span>
-        <div class="task-name">LED-браслет</div>
-        <p class="task-desc">Розроби власну носиму технологію: збери електричне коло з алюмінієвої фольги та світлодіода.</p>
-      </div>
-      <div class="task-card" style="--tc:#00e5ff">
         <span class="task-emoji">🪃</span>
         <div class="task-name">Чобіт-бумеранг</div>
-        <p class="task-desc">Вивчи аеродинаміку пташиного польоту, надаючи картонним лопатям правильних вигинів для повернення до рук.</p>
-      </div>
-      <div class="task-card" style="--tc:#00e5ff">
-        <span class="task-emoji">🌱</span>
-        <div class="task-name">Гелікоптер-насінинка</div>
-        <p class="task-desc">Запусти модель, що імітує політ насіння, та дізнайся, як дрони допомагають відновлювати ліси після пожеж.</p>
-      </div>
-      <div class="task-card" style="--tc:#00e5ff">
-        <span class="task-emoji">🚨</span>
-        <div class="task-name">Маяк</div>
-        <p class="task-desc">Збери схему, що реагує на солону воду, та дізнайся, як розумні буї «слухають» океан і допомагають дельфінам.</p>
+        <p class="task-desc">Вивчи аеродинаміку пташиного польоту, надаючи картонним лопатям правильних вигинів.</p>
       </div>
       <div class="task-card" style="--tc:#00e5ff">
         <span class="task-emoji">📦</span>
-        <div class="task-name">Як воно обертається</div>
-        <p class="task-desc">Створи листівку-кірігамі, яка компактно складається, подібно до космічних житлових модулів для Місяця.</p>
+        <div class="task-name">Космічне кірігамі</div>
+        <p class="task-desc">Створи листівку-кірігамі, яка компактно складається, подібно до космічних модулів.</p>
       </div>
     </div>
   </div>
@@ -1104,22 +1046,12 @@
       <div class="task-card" style="--tc:#aaff00">
         <span class="task-emoji">🪁</span>
         <div class="task-name">Літун XL 2.0</div>
-        <p class="task-desc">Сконструюй великого коробчастого змія, використавши теорему Піфагора, та вивчи майбутнє висотної вітроенергетики.</p>
+        <p class="task-desc">Сконструюй коробчастого змія та вивчи майбутнє висотної вітроенергетики.</p>
       </div>
       <div class="task-card" style="--tc:#aaff00">
         <span class="task-emoji">🌬️</span>
         <div class="task-name">Вітроверт</div>
-        <p class="task-desc">Створи складну динамічну структуру з металу, що захищає птахів від ударів струмом на лініях електропередач.</p>
-      </div>
-      <div class="task-card" style="--tc:#aaff00">
-        <span class="task-emoji">🪐</span>
-        <div class="task-name">Якби планети світилися</div>
-        <p class="task-desc">Спроєктуй дизайнерський світильник, використовуючи дриль для підготовки корпусу та мідну фольгу для живлення.</p>
-      </div>
-      <div class="task-card" style="--tc:#aaff00">
-        <span class="task-emoji">🪚</span>
-        <div class="task-name">Складні головоломки</div>
-        <p class="task-desc">Опануй роботу з фанерою та лобзиком, створюючи тривимірні механічні загадки «Індійський трюк» та «Веселий Роджер».</p>
+        <p class="task-desc">Створи структуру, що захищає птахів від ударів струмом на лініях електропередач.</p>
       </div>
     </div>
   </div>
@@ -1136,22 +1068,17 @@
     <div class="tech-item">
       <span class="tech-icon">🤖</span>
       <div class="tech-name">Біонічна робототехніка</div>
-      <p class="tech-desc">Від простих рухомих моделей до біоінспірованих рішень. Досліджуємо механіку руху комах, як-от RoboBee, та створюємо власних роботів із підручних матеріалів, вивчаючи основи вбудованих систем.</p>
+      <p class="tech-desc">Досліджуємо механіку руху комах та створюємо власних роботів із підручних матеріалів.</p>
     </div>
     <div class="tech-item">
       <span class="tech-icon">📐</span>
-      <div class="tech-name">Інженерне моделювання та кірігамі</div>
-      <p class="tech-desc">Від паперового ескізу до складних космічних модулів. Використовуємо принципи орігамі та кірігамі для проектування компактних структур, що розгортаються в космосі, та будуємо призматичні літальні апарати на основе математичних розрахунків.</p>
+      <div class="tech-name">Кірігамі та моделювання</div>
+      <p class="tech-desc">Використовуємо принципи орігамі для проектування компактних структур, що розгортаються.</p>
     </div>
     <div class="tech-item">
       <span class="tech-icon">🌬️</span>
-      <div class="tech-name">Енергія та еко-моніторинг</div>
-      <p class="tech-desc">Ловимо вітер кайтами та слухаємо океан «розумними» буями. Вивчаємо альтернативну енергетику через запуск висотних літунів та проектуємо системи захисту птахів і моніторингу довкілля за допомогою сенсорів.</p>
-    </div>
-    <div class="tech-item">
-      <span class="tech-icon">💡</span>
-      <div class="tech-name">Носимі технології та рідка схемотехніка</div>
-      <p class="tech-desc">Створюємо електричні кола, де провідником може бути навіть солона вода. Проектуємо LED-браслети, розумні світильники та вивчаємо провідність матеріалів, перетворюючи звичайну фізику на справжню інженерну магію.</p>
+      <div class="tech-name">Еко-енергетика</div>
+      <p class="tech-desc">Ловимо вітер кайтами та проектуємо системи захисту птахів і моніторингу довкілля.</p>
     </div>
   </div>
 </section>
@@ -1161,49 +1088,28 @@
 <section id="why">
   <div class="section-label">Переваги</div>
   <h2>Чому <span style="color:var(--orange)">варто</span> взяти участь?</h2>
-  <p class="section-sub">Тут не буде нудних лекцій. Тільки практика, команда і результат.</p>
+  <p class="section-sub">Тільки практика, команда і реальний результат.</p>
 
   <div class="why-grid">
     <div class="why-item">
       <div class="why-num">01</div>
       <div class="why-text">
         <h3>🧠 Реальні навички</h3>
-        <p>Програмування, конструювання, проектування — ті скіли, за які компанії платять великі гроші. І ти можеш почати прямо зараз.</p>
+        <p>Програмування, конструювання, проектування — ті скіли, які потрібні майбутнім інженерам.</p>
       </div>
     </div>
     <div class="why-item">
       <div class="why-num">02</div>
       <div class="why-text">
         <h3>🤝 Командна робота</h3>
-        <p>Жоден великий проект не створюється наодинці. Навчишся слухати, пояснювати і робити разом — як у справжніх стартапах.</p>
+        <p>Навчишся слухати, пояснювати і розв'язувати складні завдання разом у команді.</p>
       </div>
     </div>
     <div class="why-item">
       <div class="why-num">03</div>
       <div class="why-text">
-        <h3>🏆 Круті призи</h3>
-        <p>Фінальний день — це захист проектів і нагородження. Сертифікати, призи та море фоток для галереї переможців.</p>
-      </div>
-    </div>
-    <div class="why-item">
-      <div class="why-num">04</div>
-      <div class="why-text">
-        <h3>🚀 Натхнення на рік вперед</h3>
-        <p>Побачиш, що ти здатний на набагато більше, ніж думаєш. Ці п'ять днів можуть змінити твій погляд на майбутню професію.</p>
-      </div>
-    </div>
-    <div class="why-item">
-      <div class="why-num">05</div>
-      <div class="why-text">
-        <h3>👾 Нові друзі-однодумці</h3>
-        <p>Познайомишся з хлопцями і дівчатами, яким теж цікава технологія. Разом будувати значно веселіше!</p>
-      </div>
-    </div>
-    <div class="why-item">
-      <div class="why-num">06</div>
-      <div class="why-text">
-        <h3>💡 Твій проект — твоя ідея</h3>
-        <p>Ніяких шаблонів. Ти сам обираєш, що будувати. Менторів — максимум підтримки, контролю — мінімум.</p>
+        <h3>🏆 Фінал та призи</h3>
+        <p>Фінальний день — це захист проектів, сертифікати, нагородження та море яскравих емоцій.</p>
       </div>
     </div>
   </div>
@@ -1254,7 +1160,7 @@
             </div>
 
             <div class="form-group">
-              <label>Напрямок участі *</label>
+              <label>Напрямок участі</label>
               <div class="track-hint" id="trackHint">↑ Спочатку оберіть клас</div>
               <div class="tracks-check" id="tracksContainer">
                 <div class="track-opt hidden grades-1-4" onclick="toggleTrack(this)">
@@ -1274,14 +1180,6 @@
                     <div class="track-opt-sub">Біомімікрія · Аеродинаміка · Рідка схемотехніка</div>
                   </div>
                 </div>
-                <div class="track-opt hidden grades-5-9" onclick="toggleTrack(this)">
-                  <input type="checkbox" name="track" value="kirigami">
-                  <div class="check-box"></div>
-                  <div>
-                    <div class="track-opt-text">📐 Космічне моделювання та кірігамі</div>
-                    <div class="track-opt-sub">Орігамі-структури · Паперові модулі · Математика форм</div>
-                  </div>
-                </div>
 
                 <div class="track-opt hidden grades-10-11" onclick="toggleTrack(this)">
                   <input type="checkbox" name="track" value="techdesign">
@@ -1291,28 +1189,12 @@
                     <div class="track-opt-sub">Кайтові системи · Відновлювана енергетика</div>
                   </div>
                 </div>
-                <div class="track-opt hidden grades-10-11" onclick="toggleTrack(this)">
-                  <input type="checkbox" name="track" value="eco">
-                  <div class="check-box"></div>
-                  <div>
-                    <div class="track-opt-text">🌿 Еко-інженерія та безпека тваринного світу</div>
-                    <div class="track-opt-sub">Захист птахів · Моніторинг довкілля · Сенсори</div>
-                  </div>
-                </div>
-                <div class="track-opt hidden grades-10-11" onclick="toggleTrack(this)">
-                  <input type="checkbox" name="track" value="embedded">
-                  <div class="check-box"></div>
-                  <div>
-                    <div class="track-opt-text">🔧 Прототипування вбудованих систем</div>
-                    <div class="track-opt-sub">Мікроконтролери · IoT · Захист проекту</div>
-                  </div>
-                </div>
               </div>
             </div>
 
             <div class="form-group">
               <label for="dream">Твій найсміливіший винахід</label>
-              <textarea id="dream" placeholder="Який винахід ти хотів би втілити в життя? Не бійся мріяти масштабно! 🚀"></textarea>
+              <textarea id="dream" placeholder="Який винахід ти хотів би втілити в життя? 🚀"></textarea>
             </div>
 
             <button type="submit" class="btn-submit">⚡ Я В СПРАВІ!</button>
@@ -1323,16 +1205,13 @@
           <span class="success-icon">🎉</span>
           <div class="success-title">Вітаємо, інженере!</div>
           <p class="success-text">
-            Твоя заявка прийнята 🚀<br>
-            Ти тепер офіційно частина команди.<br>
-            <strong>Наступний крок</strong> — приєднайся до нашого Telegram-чату, щоб отримати деталі, розклад і найважливіше: не проґавити жодної активності!
+            Твоя заявка успішно прийнята 🚀<br>
+            Тепер ти частина нашої команди.<br>
+            Очікуй деталей щодо точного розкладу та зустрічі найближчим часом!
           </p>
           <br>
-          <a href="https://t.me/+yourlink" class="success-tg" target="_blank">
-            📲 Приєднатися до Telegram-чату
-          </a>
           <p style="margin-top:16px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); letter-spacing:1px;">
-            ДО ЗУСТРІЧІ 6 КВІТНЯ · ЛІЦЕЙ № 4 · STEM-ЗАЛ
+            ДО ЗУСТРІЧІ НА ІНЖЕНЕРНОМУ ТИЖНІ · ЛІЦЕЙ № 4 · STEM-ЗАЛ
           </p>
         </div>
       </div>
@@ -1344,11 +1223,32 @@
   <div class="footer-logo">⚡ ЛІЦЕЙ <span>// ІНЖЕНЕРНИЙ ТИЖДЕНЬ</span></div>
   <div class="footer-right">
     6 — 10 КВІТНЯ 2026<br>
-    <span style="color:var(--border);">Питання? Пишіть у Telegram</span>
+    <span style="color:var(--border);">Всі права захищені</span>
   </div>
 </footer>
 
 <script>
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // ── GOOGLE FORMS КОНФІГ ──
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  const GF_CONFIG = {
+    // 1. Повне посилання на форму з formResponse наприкінці
+    formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSc3r9bqqR-VCM2UbQRUGQrI5jq4d-XJTNJ7347AeH6SPPvWEw/formResponse',
+
+    // 2. Сюди потрібно вставити реальні цифри замість нулів
+    fields: {
+      name:    'entry.1919649352',   // ID для поля "ПІБ учня"
+      grade:   'entry.268246097',   // ID для поля "Клас"
+      dream:   'entry.566182489',   // ID для поля "Твій найсміливіший винахід"
+      
+      // На випадок, якщо згодом додасте напрямок у Google-форму:
+      // track:   'entry.00000000',   
+    }
+  };
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
   // ── TASKS TABS ──
   function switchTab(btn, panelId) {
     document.querySelectorAll('.tasks-tab').forEach(t => t.classList.remove('active'));
@@ -1428,7 +1328,7 @@
       label = '👇 Обери свій напрямок:';
     } else {
       group = '.grades-10-11';
-      label = '👇 Обери до двох напрямків:';
+      label = '👇 Обери свій напрямок:';
     }
 
     hint.textContent = label;
@@ -1439,33 +1339,9 @@
     const isActive = el.classList.contains('active');
     const input = el.querySelector('input');
 
-    // Max 2 selections for 10-11
-    const grade = parseInt(document.getElementById('grade').value);
-    if (!isActive && grade >= 10) {
-      const activeCount = document.querySelectorAll('.track-opt.active').length;
-      if (activeCount >= 2) return;
-    }
-
     el.classList.toggle('active');
     input.checked = !isActive;
   }
-
-  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  // ── GOOGLE FORMS КОНФІГ ──
-  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  const GF_CONFIG = {
-    formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSfD_...ВАШ_ID.../formResponse',
-
-    fields: {
-      name:    'entry.1919649352',   // ID поля ПІБ учня
-      grade:   'entry.268246097',   // ID поля Клас
-      track:   'entry.00000000',   // ID поля Напрямок
-      dream:   'entry.566182489',   // ID поля Винахід
-    }
-  };
-
-  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   // ── FORM SUBMIT ──
   document.getElementById('regForm').addEventListener('submit', function(e) {
@@ -1474,10 +1350,12 @@
     const name    = document.getElementById('name').value.trim();
     const grade   = document.getElementById('grade').value;
     const dream   = document.getElementById('dream').value.trim();
+    
+    // Зчитуємо треки на випадок майбутнього використання
     const tracks  = [...document.querySelectorAll('input[name="track"]:checked')];
 
     // ── ВАЛІДАЦІЯ ──
-    if (!name || !grade || tracks.length === 0) {
+    if (!name || !grade) {
       [!name && 'name', !grade && 'grade']
         .filter(Boolean)
         .forEach(id => {
@@ -1486,22 +1364,20 @@
           el.style.boxShadow = '0 0 0 3px rgba(255,107,43,0.15)';
           setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 2000);
         });
-      if (tracks.length === 0) {
-        document.getElementById('trackHint').style.color = 'var(--orange)';
-        setTimeout(() => document.getElementById('trackHint').style.color = '', 2000);
-      }
       return;
     }
 
     // ── ВІДПРАВКА В GOOGLE FORMS ──
-    const trackLabels = tracks.map(t => t.value).join(', ');
-
     const params = new URLSearchParams();
     params.append(GF_CONFIG.fields.name,    name);
     params.append(GF_CONFIG.fields.grade,   grade + ' клас');
-    params.append(GF_CONFIG.fields.track,   trackLabels);
     params.append(GF_CONFIG.fields.dream,   dream || '—');
-    params.append('submit',                 'Submit');
+    
+    // Якщо ви додасте поле треку у свою Google-форму,
+    // просто розкоментуйте цей рядок:
+    // params.append(GF_CONFIG.fields.track, tracks.map(t => t.value).join(', '));
+    
+    params.append('submit', 'Submit');
 
     let iframe = document.getElementById('gf-iframe');
     if (!iframe) {
