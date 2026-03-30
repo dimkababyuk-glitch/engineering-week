@@ -1163,7 +1163,7 @@
               <div class="track-hint" id="trackHint">↑ Спочатку оберіть клас</div>
               <div class="tracks-check" id="tracksContainer">
                 <div class="track-opt hidden grades-1-4" onclick="toggleTrack(this)">
-                  <input type="checkbox" name="track" value="maker">
+                  <input type="checkbox" name="track" value="🧱 Мейкер-початківець">
                   <div class="check-box"></div>
                   <div>
                     <div class="track-opt-text">🧱 Мейкер-початківець</div>
@@ -1172,7 +1172,7 @@
                 </div>
 
                 <div class="track-opt hidden grades-5-9" onclick="toggleTrack(this)">
-                  <input type="checkbox" name="track" value="researcher">
+                  <input type="checkbox" name="track" value="🤖 Інженер-дослідник">
                   <div class="check-box"></div>
                   <div>
                     <div class="track-opt-text">🤖 Інженер-дослідник</div>
@@ -1181,7 +1181,7 @@
                 </div>
 
                 <div class="track-opt hidden grades-10-11" onclick="toggleTrack(this)">
-                  <input type="checkbox" name="track" value="techdesign">
+                  <input type="checkbox" name="track" value="⚡ Техно-дизайнер майбутнього">
                   <div class="check-box"></div>
                   <div>
                     <div class="track-opt-text">⚡ Техно-дизайнер майбутнього</div>
@@ -1230,23 +1230,15 @@
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   // ── GOOGLE FORMS КОНФІГ ──
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
   const GF_CONFIG = {
-    // 1. Повне посилання на форму з formResponse наприкінці
-formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSc3r9bqqR-VCM2UbQRUGQrI5jq4d-XJTNJ7347AeH6SPPvWEw/formResponse',
-    // 2. Сюди потрібно вставити реальні цифри замість нулів
+    submitUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSc3r9bqqR-VCM2UbQRUGQrI5jq4d-XJTNJ7347AeH6SPPvWEw/formResponse',
     fields: {
-      name:    'entry.1919649352',   // ID для поля "ПІБ учня"
-      grade:   'entry.268246097',   // ID для поля "Клас"
-      track:   'entry.1485086201',// ID для поля "Напрям"
-      dream:   'entry.566182489',   // ID для поля "Твій найсміливіший винахід"
-      
-      // На випадок, якщо згодом додасте напрямок у Google-форму:
-      // track:   'entry.00000000',   
+      name:  'entry.1919649352',
+      grade: 'entry.268246097',
+      track: 'entry.1485086201',
+      dream: 'entry.566182489',
     }
   };
-
-  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   // ── TASKS TABS ──
   function switchTab(btn, panelId) {
@@ -1283,7 +1275,7 @@ formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSc3r9bqqR-VCM2UbQRUGQrI5jq4d-
   // ── SCROLL FADE ──
   const fadeEls = document.querySelectorAll('.track-card, .tech-item, .why-item');
   const fadeObs = new IntersectionObserver(entries => {
-    entries.forEach((e, i) => {
+    entries.forEach(e => {
       if (e.isIntersecting) {
         setTimeout(() => {
           e.target.style.opacity = '1';
@@ -1335,90 +1327,43 @@ formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSc3r9bqqR-VCM2UbQRUGQrI5jq4d-
   }
 
   function toggleTrack(el) {
-    const isActive = el.classList.contains('active');
-    const input = el.querySelector('input');
-
     el.classList.toggle('active');
-    input.checked = !isActive;
+    el.querySelector('input').checked = el.classList.contains('active');
   }
 
   // ── FORM SUBMIT ──
-  // ── FORM SUBMIT ──
-document.getElementById('regForm').addEventListener('submit', function(e) {
-  e.preventDefault();
+  document.getElementById('regForm').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-  const name  = document.getElementById('name').value.trim();
-  const grade = document.getElementById('grade').value;
-  const dream = document.getElementById('dream').value.trim();
-  const tracks = [...document.querySelectorAll('input[name="track"]:checked')];
+    const name   = document.getElementById('name').value.trim();
+    const grade  = document.getElementById('grade').value;
+    const dream  = document.getElementById('dream').value.trim();
+    const tracks = [...document.querySelectorAll('input[name="track"]:checked')];
 
-  if (!name || !grade) {
-    [!name && 'name', !grade && 'grade'].filter(Boolean).forEach(id => {
-      const el = document.getElementById(id);
-      el.style.borderColor = 'var(--orange)';
-      el.style.boxShadow = '0 0 0 3px rgba(255,107,43,0.15)';
-      setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 2000);
-    });
-    return;
-  }
-
-  const params = new URLSearchParams();
-  params.append(GF_CONFIG.fields.name,  name);
-  params.append(GF_CONFIG.fields.grade, grade + ' клас');
-  params.append(GF_CONFIG.fields.dream, dream || '—');
-  params.append(GF_CONFIG.fields.track, tracks.map(t => t.value).join(', ') || '—');
-
-  const submitUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSc3r9bqqR-VCM2UbQRUGQrI5jq4d-XJTNJ7347AeH6SPPvWEw/formResponse';
-
-  fetch(submitUrl, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: params.toString()
-  }).catch(() => {}); // no-cors завжди кидає помилку — це нормально
-
-  document.getElementById('form-content').style.display = 'none';
-  document.getElementById('successMsg').classList.add('show');
-});
+    // ── ВАЛІДАЦІЯ ──
+    if (!name || !grade) {
+      [!name && 'name', !grade && 'grade'].filter(Boolean).forEach(id => {
+        const el = document.getElementById(id);
+        el.style.borderColor = 'var(--orange)';
+        el.style.boxShadow = '0 0 0 3px rgba(255,107,43,0.15)';
+        setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 2000);
+      });
+      return;
+    }
 
     // ── ВІДПРАВКА В GOOGLE FORMS ──
     const params = new URLSearchParams();
-    params.append(GF_CONFIG.fields.name,    name);
-    params.append(GF_CONFIG.fields.grade,   grade + ' клас');
-    params.append(GF_CONFIG.fields.dream,   dream || '—');
-    
-    // Якщо ви додасте поле треку у свою Google-форму,
-    // просто розкоментуйте цей рядок:
-    // params.append(GF_CONFIG.fields.track, tracks.map(t => t.value).join(', '));
-    
-    params.append('submit', 'Submit');
+    params.append(GF_CONFIG.fields.name,  name);
+    params.append(GF_CONFIG.fields.grade, grade + ' клас');
+    params.append(GF_CONFIG.fields.track, tracks.map(t => t.value).join(', ') || '—');
+    params.append(GF_CONFIG.fields.dream, dream || '—');
 
-    let iframe = document.getElementById('gf-iframe');
-    if (!iframe) {
-      iframe = document.createElement('iframe');
-      iframe.id = 'gf-iframe';
-      iframe.name = 'gf-iframe';
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-    }
-
-    const tempForm = document.createElement('form');
-    tempForm.method = 'POST';
-    tempForm.action = GF_CONFIG.formUrl;
-    tempForm.target = 'gf-iframe';
-    tempForm.style.display = 'none';
-
-    params.forEach((val, key) => {
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = key;
-      input.value = val;
-      tempForm.appendChild(input);
-    });
-
-    document.body.appendChild(tempForm);
-    tempForm.submit();
-    document.body.removeChild(tempForm);
+    fetch(GF_CONFIG.submitUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params.toString()
+    }).catch(() => {}); // no-cors — помилка очікувана, дані все одно надходять
 
     // ── ПОКАЗАТИ УСПІХ ──
     document.getElementById('form-content').style.display = 'none';
